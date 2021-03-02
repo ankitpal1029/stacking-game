@@ -2,7 +2,7 @@ import React from 'react';
 
 const About: React.FC = () => {
     return (
-        <div className="home">About</div>
+        <div >About</div>
     )
 }
 

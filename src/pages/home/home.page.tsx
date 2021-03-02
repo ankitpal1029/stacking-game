@@ -1,71 +1,74 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-//import {render} from 'react-dom';
-import * as THREE from 'three';
-import {DirectionalLight} from 'three';
-//import {Post} from '../../common/interface/post.interface';
-//import PostsGrid from '../../components/posts-grid/posts-grid.component';
+import Game from './game/gameInit';
 
-class Home extends Component{
-    componentDidMount(){
-    const scene = new THREE.Scene();
+class Home extends Component<{},{gameStarted:boolean}>{
 
+    private gameContainer: any;
+    private boxHeight:number = 1;
+    private originalBoxSize: number = 3;
 
-    const geometry = new THREE.BoxGeometry(3,1,3);
-        const material = new THREE.MeshLambertMaterial({ color: 0xfb8e00 });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(0,0,0);
-    scene.add(mesh);
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    directionalLight.position.set(10, 20, 0);
-    scene.add(directionalLight);
-
-    const width = 10;
-    const height = width * (window.innerHeight / window.innerWidth);
-    const camera = new THREE.OrthographicCamera(
-        width / -2,
-        width / 2,
-        height / 2,
-        height / -2,
-        1,
-        100
-    );
-
-    camera.position.set(4, 4, 4);
-    camera.lookAt(0, 0, 0);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    
-    //var renderer = new THREE.WebGLRenderer();
-    //renderer.setSize( window.innerWidth, window.innerHeight );
-    //document.body.appendChild( renderer.domElement );
-
-    var animate = function () {
-      requestAnimationFrame( animate );
-      renderer.render( scene, camera );
-    };
-    animate();
-    ReactDOM.findDOMNode(this.refs.animation)?.appendChild(renderer.domElement);
+    constructor(props:any){
+        super(props);
+        this.gameContainer = React.createRef();
+        this.state = {
+            gameStarted:false
+        }
 
     }
+
+
+    animate(scene:THREE.Scene, camera:THREE.OrthographicCamera, stack: any[], renderer:THREE.WebGLRenderer) {
+        const speed = 0.15;
+
+        const topLayer = stack[stack.length - 1];
+        console.log(topLayer);
+        topLayer.threejs.position[topLayer.direction] += speed;
+
+        if(camera.position.y < this.boxHeight * (stack.length - 2) + 4){
+            camera.position.y += speed;
+
+        }
+
+        return renderer.render( scene, camera );
+    };
+    
+
+    componentDidMount(){
+        let gameRender: Game= new Game();
+        let { renderer, scene, camera, stack} = gameRender.render();
+
+        window.addEventListener("click", () => {
+            if(!this.state.gameStarted){
+                console.log(stack);
+                renderer.setAnimationLoop(() => this.animate(scene, camera, stack, renderer));
+                this.setState({
+                    gameStarted:true
+                });
+            }else{
+                const topLayer = stack[stack.length - 1];
+                const direction = topLayer.direction;
+
+                const nextX = direction === "x"? 0: -10;
+                const nextZ = direction === "z"? 0: -10;
+                const newWidth = this.originalBoxSize;
+                const newDepth = this.originalBoxSize;
+                const nextDirection = direction === "x"?"z":"x";
+
+                gameRender.addLayer(nextX, nextZ, newWidth, newDepth, nextDirection);
+            }
+        })
+    
+        ReactDOM.findDOMNode(this.gameContainer.current)?.appendChild(renderer.domElement);
+    }
+    
   render() {
     return (
-        <div ref="animation"></div>
+        <div ref={this.gameContainer}></div>
         )
   }
   
 
 }
-/*const Home: React.FC = () => {
-    return (
-        <div className="home">
-        </div>
-    )
-}
- */
 
 export default Home;

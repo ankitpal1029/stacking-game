@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Game from './game/gameInit';
 import * as CANNON from 'cannon';
+import "./home.page.css";
 
 class Home extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:number}>{
 
@@ -157,16 +158,43 @@ class Home extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:n
             }
         })
     
+        renderer.domElement.className = `col s4`;
+      console.log(this.gameContainer.current);
         ReactDOM.findDOMNode(this.gameContainer.current)?.appendChild(renderer.domElement);
+        
     }
     
   render() {
     return (
-        <div ref={this.gameContainer}>
-            <p>{this.state.score} </p>
-            {this.state.gameEnded && 
-                 <p>Games over</p>
-            }
+        <div className="game-container" >
+            <div className="center">
+
+                {!this.state.gameStarted && 
+                    <div className="btn waves-effect waves-light">
+                        Click anywhere on the screen to start
+                    </div>
+                }
+
+
+                {this.state.gameStarted  &&
+                 !this.state.gameEnded &&
+                    <div className="col s6 btn waves-effect waves-light" >
+                        {this.state.score}
+                    </div>
+                }
+
+
+                {this.state.gameEnded && 
+                    <div className="col s6 btn waves-effect waves-light">
+                        Game's Over Your Score Is {this.state.score} 
+                    </div>
+                }
+            </div>
+            <div className="center">
+                <div className=""></div>
+                <div className="game" ref={this.gameContainer}></div>
+                <div className=""></div>
+            </div>
         </div>
         )
   }

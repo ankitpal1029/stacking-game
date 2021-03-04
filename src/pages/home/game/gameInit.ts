@@ -11,6 +11,10 @@ class Game{
     private stack: any[] = [];
     private boxHeight: number = 1;
     private overhangs: any[] = [];
+
+
+
+
     constructor(){
         this.originalBoxSize = 3;
         this.scene = new THREE.Scene();
@@ -44,7 +48,7 @@ class Game{
         this.camera.position.set(4, 4, 4);
         this.camera.lookAt(0, 0, 0);
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(window.innerWidth /1.2, window.innerHeight / 1.2);
         
     }
     cannonReturner(){

@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
 import {ApolloProvider} from '@apollo/client';
 
 import Header from '../header/header.component';
-import Home from '../../pages/home/home.page';
+import GamePage from '../../pages/game/game.page';
 
 
 import '../../common/styles';
@@ -11,7 +11,8 @@ import './app.component.css';
 import client from '../../common/apollo-client';
 
 import "materialize-css/dist/css/materialize.min.css";
-import Login from '../../pages/login/login.page';
+import SignIn from '../../pages/signin/signin.page';
+import SignUp from '../../pages/signup/signup.page';
 
 
 const App: React.FC = () => {
@@ -19,14 +20,21 @@ const App: React.FC = () => {
         <ApolloProvider client={client}>
             <Router>
                 <Header />
+
                 <Switch>
-                    <Route path="/login">
-                        <Login/>
+                    <Route path="/game">
+                        <GamePage/>
                     </Route>
-                    <Route path="/">
-                        <Home/>
+
+                    <Route path="/signin">
+                        <SignIn/>
+                    </Route>
+
+                    <Route path="/signup">
+                        <SignUp />
                     </Route>
                 </Switch>
+
             </Router>
         </ApolloProvider>
     )

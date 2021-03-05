@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import Game from './game/gameInit';
+import Game from './gamelogic/gameInit';
 import * as CANNON from 'cannon';
-import "./home.page.css";
+import "./game.page.css";
 
-class Home extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:number}>{
+class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:number}>{
 
     private gameContainer: any;
     private boxHeight:number = 1;
@@ -167,15 +167,13 @@ class Home extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:n
   render() {
     return (
         <div className="game-container" >
-            <div className="center">
+            <div className="center-home">
 
                 {!this.state.gameStarted && 
                     <div className="btn waves-effect waves-light">
                         Click anywhere on the screen to start
                     </div>
                 }
-
-
                 {this.state.gameStarted  &&
                  !this.state.gameEnded &&
                     <div className="col s6 btn waves-effect waves-light" >
@@ -190,7 +188,7 @@ class Home extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:n
                     </div>
                 }
             </div>
-            <div className="center">
+            <div className="center-home">
                 <div className=""></div>
                 <div className="game" ref={this.gameContainer}></div>
                 <div className=""></div>
@@ -202,4 +200,4 @@ class Home extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:n
 
 }
 
-export default Home;
+export default GamePage;

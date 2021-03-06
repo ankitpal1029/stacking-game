@@ -1,53 +1,39 @@
-import React, {Component, MouseEvent} from 'react';
+import {useMutation} from '@apollo/client';
+import React, {useState} from 'react';
+import {LOGIN_USER} from '../../hooks/user/loginUser';
 import "./signin.page.css";
 
 
-class SignIn extends Component<{},{
-    email: string,
-    password: string
-}>{
-    constructor(props: any){
-        super(props);
-        this.state = {
-            email: "",
-            password: ""
-        }
-        this.changeHandler = this.changeHandler.bind(this);
-        this.submitHandler = this.submitHandler.bind(this)
-        
+const SignIn: React.FC = () => {
+    const [ password, setPassword] = useState("")
+    const [ email, setEmail] = useState("")
 
-    }
-    changeHandler(e:React.ChangeEvent<HTMLInputElement>){
-        const { id, value } = e.target;
-        this.setState({
-            ...this.state,
-            [id]: value
-        },() => console.log(this.state));
-         
+    const [ login , { data } ] = useMutation(LOGIN_USER)
 
-    }
-
-    submitHandler(e: MouseEvent){
+    async function submitHandler (e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        console.log(this.state);
+        await login({ variables: { email, password } });
+        console.log(data);
+
+
     }
-    render(){
+
 
     return (
             <div className="center">
                 <div className="container">
-                    <form  className="white">
+                    <form  className="white" onSubmit={submitHandler}>
                         <h5 className="grey-text text-darken-3">SignIn</h5>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>
-                            <input type="email" id="email" onChange={this.changeHandler} />
+                            <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <div className="input-field">
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" onChange={this.changeHandler}/>
+                            <input type="password" id="password" onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                         <div className="input-field">
-                            <button className="btn lighten-1 z-depth-0" onClick={this.submitHandler}>SignIn</button>
+                            <button className="btn lighten-1 z-depth-0" >SignIn</button>
                             <div className="red-text center">
                             </div>
                         </div>
@@ -56,7 +42,6 @@ class SignIn extends Component<{},{
             </div>
 
     )
-    }
 }
 
 export default SignIn;

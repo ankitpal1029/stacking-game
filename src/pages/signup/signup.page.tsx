@@ -1,76 +1,58 @@
-import {Component, MouseEvent} from 'react';
+import {useMutation} from "@apollo/client";
+import React, {useState} from "react";
+import {CREATE_USER} from "../../hooks/user/useCreateUser";
 import "./signup.page.css";
 
 
-class SignUp extends Component<{},{
-    firstName:string,
-    lastName:string,
-    email:string,
-    password:string
-}>{
+const SignUp:React.FC = () => {
+    const [ firstName, setfirstName ] = useState("")
+    const [ lastName, setlastName] = useState("")
+    const [ password, setPassword] = useState("")
+    const [ email, setEmail] = useState("")
 
-    constructor(props: any){
-        super(props);
-        this.state = {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: ""
-        };
-        this.changeHandler = this.changeHandler.bind(this);
-        this.submitHandler = this.submitHandler.bind(this)
+    const [ createUser, { data } ] = useMutation(CREATE_USER)
 
-    }
-
-    changeHandler(e:React.ChangeEvent<HTMLInputElement>){
-        const { id, value } = e.target;
-        this.setState({
-            ...this.state,
-            [id]: value
-        },() => console.log(this.state));
-         
-
-    }
-
-    submitHandler(e: MouseEvent){
+    function submitHandler(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        console.log(this.state);
+        createUser({ variables: {firstName, lastName , email, password} } );
+        console.log(data);
+
+
     }
 
 
-    render(){
-        return(
-            <div className="center">
-                <div className="container">
-                    <form className="white">
-                        <h5 className="grey-text text-darken-3">Sign Up</h5>
-                        <div className="input-field">
-                            <label htmlFor="firstName">First Name</label>
-                            <input type="text" id="firstName" onChange={this.changeHandler}/>
-                        </div>
-                        <div className="input-field">
-                            <label htmlFor="lastName">Last Name</label>
-                            <input type="text" id="lastName" onChange={this.changeHandler} />
-                        </div>
-                        <div className="input-field">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" id="email" onChange={this.changeHandler} />
-                        </div>
-                        <div className="input-field">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" id="password" onChange={this.changeHandler}/>
-                        </div>
-                        <div className="input-field">
-                            <button className="btn lighten-1 z-depth-0" onClick={this.submitHandler}>Sign Up</button>
-                        </div>
-                        <div className="red-text center">
-                        </div>
 
-                    </form>
-                </div>
+    return(
+        <div className="center">
+            <div className="container">
+                <form className="white" onSubmit={submitHandler}>
+                    <h5 className="grey-text text-darken-3">Sign Up</h5>
+                    <div className="input-field">
+                        <label htmlFor="firstName">First Name</label>
+                        <input type="text" id="firstName" onChange={(e) => setfirstName(e.target.value)}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="lastName">Last Name</label>
+                        <input type="text" id="lastName" onChange={(e) => setlastName(e.target.value)} />
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id="password" onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                    <div className="input-field">
+                        <button className="btn lighten-1 z-depth-0">Sign Up</button>
+                    </div>
+                    <div className="red-text center">
+                    </div>
+
+                </form>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 

@@ -7,11 +7,13 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +2 src/common/styles/index.ts
-badd +8 src/pages/signup/signup.page.tsx
+badd +3 src/hooks/user/logoutUser.ts
+badd +29 src/components/header/header.component.tsx
+badd +6 src/hooks/user/useCreateUser.ts
+badd +36 src/pages/signin/signin.page.tsx
 argglobal
 %argdel
-edit src/pages/signup/signup.page.tsx
+edit src/pages/signin/signin.page.tsx
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -30,12 +32,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 8 - ((7 * winheight(0) + 23) / 46)
+let s:l = 36 - ((22 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 0
+36
+normal! 069|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

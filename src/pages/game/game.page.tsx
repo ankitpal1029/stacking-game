@@ -56,7 +56,6 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
         const speed = 0.15;
 
         const topLayer = stack[stack.length - 1];
-        console.log(topLayer);
         topLayer.threejs.position[topLayer.direction] += speed;
         topLayer.cannonjs.position[topLayer.direction] += speed;
 
@@ -68,6 +67,10 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
 
         return renderer.render( scene, camera );
     };
+
+    clickHandler(){
+        window.location.reload();
+    }
     
 
     componentDidMount(){
@@ -76,7 +79,6 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
 
         window.addEventListener("click", () => {
             if(!this.state.gameStarted){
-                console.log(stack);
                 let { world, overhangs } = gameRender.cannonReturner();
                 renderer.setAnimationLoop(() => this.animate(scene, camera, stack, renderer,world,overhangs ));
                 this.setState({
@@ -159,7 +161,6 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
         })
     
         renderer.domElement.className = `col s4`;
-      console.log(this.gameContainer.current);
         ReactDOM.findDOMNode(this.gameContainer.current)?.appendChild(renderer.domElement);
         
     }
@@ -183,8 +184,10 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
 
 
                 {this.state.gameEnded && 
-                    <div className="col s6 btn waves-effect waves-light">
-                        Game's Over Your Score Is {this.state.score} 
+                    <div className="col s6 ">
+                    <button onClick={this.clickHandler} className="btn lighten-1 z-depth-0">
+                        Game's Over Your Score Is {this.state.score} Click To PlayAgain
+                    </button>
                     </div>
                 }
             </div>

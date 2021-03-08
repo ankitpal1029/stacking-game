@@ -13,6 +13,7 @@ import client from '../../common/apollo-client';
 import "materialize-css/dist/css/materialize.min.css";
 import SignIn from '../../pages/signin/signin.page';
 import SignUp from '../../pages/signup/signup.page';
+import Home from '../../pages/home/home.component';
 
 
 const App: React.FC = () => {
@@ -20,7 +21,6 @@ const App: React.FC = () => {
         <ApolloProvider client={client}>
             <Router>
                 <Header />
-
                 <Switch>
                     <Route path="/game">
                         <GamePage/>
@@ -33,6 +33,12 @@ const App: React.FC = () => {
                     <Route path="/signup">
                         <SignUp />
                     </Route>
+
+                    <Route path="/">
+                        <Home/ >
+                    </Route>
+
+
                 </Switch>
 
             </Router>

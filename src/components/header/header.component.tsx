@@ -1,9 +1,18 @@
+import {useMutation} from '@apollo/client';
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
+import {LOGOUT_USER} from '../../hooks/user/logoutUser';
 
 
 
 const Header: React.FC = () => {
+    const [ logout ] = useMutation(LOGOUT_USER);
+    const history = useHistory();
+
+    function logoutHandler(){
+        logout();
+        history.push("/signin");
+    }
     return (
         <header>
             <nav>
@@ -11,13 +20,18 @@ const Header: React.FC = () => {
                     <li>
                         <NavLink to="/game">Game</NavLink>
                     </li>
-                    <li>
+                    {/*
+<li>
                         <NavLink to="/signin">SignIn</NavLink>
                     </li>
                     <li>
                         <NavLink to="/signup">SignUp</NavLink>
                     </li>
-                </ul>
+                    <li onClick={logoutHandler}>
+                        LogOut
+                    </li>
+
+                      */}                </ul>
             
             </nav>
         </header>

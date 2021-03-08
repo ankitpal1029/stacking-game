@@ -2,6 +2,9 @@
 
 ### Try out the game over here
 https://stackinggame.netlify.app/
+`This isn't the completed version of the game
+ I am working on deploying the backend with auth 
+ and highscores so look out for that as well`
 
 ### Tech Stack used
 * ThreeJS(3D rendering with WebGL)

@@ -1,7 +1,7 @@
-import {useMutation} from '@apollo/client';
+//import {useMutation} from '@apollo/client';
 import React, {useState} from 'react';
 import {useHistory} from 'react-router';
-import {LOGIN_USER} from '../../hooks/user/loginUser';
+//import {LOGIN_USER} from '../../hooks/user/loginUser';
 import "./signin.page.css";
 
 
@@ -11,20 +11,20 @@ const SignIn: React.FC = () => {
     const [ loginfail, setLoginFail ] = useState(false);
     const history = useHistory();
 
-    const [ login , { data } ] = useMutation(LOGIN_USER)
+    //const [ login , { data } ] = useMutation(LOGIN_USER)
 
-    login({ variables: { email, password } });
+    //login({ variables: { email, password } });
 
     function submitHandler (e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        if(data == null){
-            console.log(data);
-            setLoginFail(true);
-            console.log('fail');
-        } else{
-            setLoginFail(true);
-            history.push("/home");
-        }
+        //if(data == null){
+            //console.log(data);
+            //setLoginFail(true);
+            //console.log('fail');
+        //} else{
+            //setLoginFail(true);
+            //history.push("/home");
+        //}
 
 
     }

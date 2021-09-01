@@ -1,18 +1,16 @@
-import {useMutation} from '@apollo/client';
 import React from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
-import {LOGOUT_USER} from '../../hooks/user/logoutUser';
 
 
 
 const Header: React.FC = () => {
-    const [ logout ] = useMutation(LOGOUT_USER);
+    //const [ logout ] = useMutation(LOGOUT_USER);
     const history = useHistory();
 
-    function logoutHandler(){
-        logout();
-        history.push("/signin");
-    }
+    //function logoutHandler(){
+        //logout();
+        //history.push("/signin");
+    //}
     return (
         <header>
             <nav>

@@ -1,12 +1,10 @@
-import {useQuery} from '@apollo/client';
 import React, {useEffect} from 'react';
 import { useHistory} from 'react-router';
-import {IS_LOGGED_IN} from '../../hooks/user/isUserLoggedIn';
 
 
 const Home: React.FC = () => {
 
-    const { loading, data } = useQuery(IS_LOGGED_IN);
+    //const { loading, data } = useQuery(IS_LOGGED_IN);
     const history = useHistory();
     
     function clickHandler(){
@@ -19,8 +17,7 @@ const Home: React.FC = () => {
     return (
         <div>
 
-        {loading ? (<p>Loading ...</p>):
-
+            {
 
             (<div className="center">
                 <div className="container">
@@ -32,7 +29,6 @@ const Home: React.FC = () => {
                             </div>
                             <div className="card-content">
                                 <h3>Your Current HighScore is 
-                                    { data && data.me }
                                 </h3>
                             </div>
 

@@ -1,6 +1,4 @@
-import {useMutation} from "@apollo/client";
 import React, {useState} from "react";
-import {CREATE_USER} from "../../hooks/user/useCreateUser";
 import { useHistory} from 'react-router';
 import "./signup.page.css";
 
@@ -11,13 +9,10 @@ const SignUp:React.FC = () => {
     const [ password, setPassword] = useState("")
     const [ email, setEmail] = useState("")
 
-    const [ createUser, { data } ] = useMutation(CREATE_USER)
+    //const [ createUser, { data } ] = useMutation(CREATE_USER)
     const history = useHistory();
 
     async function submitHandler(e: React.FormEvent<HTMLFormElement>){
-        e.preventDefault();
-        await createUser({ variables :{email,firstName,lastName,password}} );
-        history.push("/game");
     }
 
 

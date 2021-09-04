@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
-import {ApolloProvider} from '@apollo/client';
 
 import Header from '../header/header.component';
 import GamePage from '../../pages/game/game.page';
@@ -8,7 +7,6 @@ import GamePage from '../../pages/game/game.page';
 
 import '../../common/styles';
 import './app.component.css';
-import client from '../../common/apollo-client';
 
 import "materialize-css/dist/css/materialize.min.css";
 import SignIn from '../../pages/signin/signin.page';
@@ -18,7 +16,6 @@ import Home from '../../pages/home/home.component';
 
 const App: React.FC = () => {
     return (
-        <ApolloProvider client={client}>
             <Router>
                 <Header />
                 <Switch>
@@ -42,7 +39,6 @@ const App: React.FC = () => {
                 </Switch>
 
             </Router>
-        </ApolloProvider>
     )
 }
 

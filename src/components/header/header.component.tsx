@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
@@ -13,18 +13,41 @@ const Header: React.FC = () => {
         //logout();
         //history.push("/signin");
     //}
+    const [ loginStatus, setLoginStatus ] = useState(false);
     let responseSuccessGoogle = (response: any):void => {
-        console.log(response);
         axios({
             method:"POST",
             url:"http://localhost:8000/googlelogin",
             data: { tokenId: response.tokenId}
         }).then((response) => {
-            console.log(response);
+            console.log(`Google login success:`, response);
+            if(!response.data.auth){
+                setLoginStatus(false);
+            } else {
+                setLoginStatus(true);
+                localStorage.setItem("token",response.data.token)
+            }
         });
     }
 
     let responseErrorGoogle = (response:any): void => {
+    }
+
+    let logOutUser = () =>{
+        axios({
+            method: "POST",
+            url:"http://localhost:8000/"
+        });
+    }
+
+    const userAuthenticated = () => {
+        axios.get("http://localhost:8000/isUserAuth", {
+            headers: {
+                "x-access-token": localStorage.getItem("token"),
+            }
+        }).then((response) => {
+            console.log(response);
+        })
     }
     return (
         <header>
@@ -51,9 +74,11 @@ const Header: React.FC = () => {
                     <li>
                         <NavLink to="/signup">SignUp</NavLink>
                     </li>
-                    <li >
+                    <li  onClick={logOutUser}>
                         LogOut
+
                     </li>
+                    {/* loginStatus && <li onClick={userAuthenticated}> Check Auth Status</li>*/}
 
                  </ul>
             

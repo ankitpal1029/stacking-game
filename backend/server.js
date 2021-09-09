@@ -11,9 +11,9 @@ const authRoutes = require('./routes/auth');
 app.use(express.json());
 app.use(cors());
 
-const { PORT, DBUSER, DBPASSWORD }= process.env;
+const { PORT, DB_CONNECTION }= process.env;
 // connect to db
-mongoose.connect(`mongodb+srv://${DBUSER}:${DBPASSWORD}@cluster0.e2cl6.mongodb.net/test`,() => {
+mongoose.connect(`${DB_CONNECTION}`,() => {
     console.log(`connected to db`);
 });
 

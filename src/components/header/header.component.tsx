@@ -60,9 +60,9 @@ const Header: React.FC = () => {
         <header>
             <nav>
                 <ul>
-                    <li>
+                    {/*<li>
                         <NavLink to="/game">Game</NavLink>
-                    </li>
+                    </li>*/}
                     
                     {/*<li>
                         <NavLink to="/signin">SignIn</NavLink>

@@ -11,7 +11,7 @@ import "materialize-css/dist/css/materialize.min.css";
 //import SignIn from '../../pages/signin/signin.page';
 //import SignUp from '../../pages/signup/signup.page';
 import Home from '../../pages/home/home.component';
-import AuthProvider, {AuthContext} from '../../contexts/auth.context';
+import AuthProvider from '../../contexts/auth.context';
 import GuardedRoute from '../../guards/auth.guard';
 
 const App: React.FC = () => {

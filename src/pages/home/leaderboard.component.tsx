@@ -9,7 +9,7 @@ const LeaderBoard: React.FC = () => {
     useEffect(() => {
         axios({
                 method:"GET",
-                url:"http://localhost:8000/leaderboard",
+                url:"https://stacking-game.herokuapp.com/leaderboard",
             }).then((response) => {
                 console.log(response.data.users[0]);
                 setLeaderBoardInfo(response.data.users);

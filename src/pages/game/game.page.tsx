@@ -152,7 +152,7 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
                     },() => {
                         axios({
                                 method:"POST",
-                                url:"http://localhost:8000/update_high_score",
+                                url:"https://stacking-game.herokuapp.com/update_high_score",
                             data: { _id: this.context.user[0]._id, new_highscore:  new_highscore}
                             }).then((response) => {
                                 console.log(response);

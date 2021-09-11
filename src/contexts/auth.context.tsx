@@ -15,7 +15,7 @@ export default function AuthProvider(props: PropsWithChildren<any>){
 
 
     useEffect(() => {
-        axios.get("http://localhost:8000/isUserAuth", {
+        axios.get("https://stacking-game.herokuapp.com/isUserAuth", {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             }

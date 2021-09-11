@@ -3,6 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import { useHistory} from 'react-router';
 import {AuthContext} from '../../contexts/auth.context';
 import LeaderBoard from './leaderboard.component';
+import clip from './homepage.mp4';
 
 
 const Home: React.FC = () => {
@@ -20,7 +21,7 @@ const Home: React.FC = () => {
     useEffect(() => {
         axios({
                 method:"GET",
-                url:"http://localhost:8000/leaderboard",
+                url:"https://stacking-game.herokuapp.com/leaderboard",
             }).then((response) => {
                 setLeaderBoard(response.data.users);
         });
@@ -32,6 +33,24 @@ const Home: React.FC = () => {
 
 
             <div className="center">
+                <video 
+                    autoPlay 
+                    muted 
+                    loop 
+                    id="myVideo"
+                    style={{
+                        position: "absolute",
+                        width: "100%",
+                        left: "50%",
+                        top: "50%",
+                        height: "100%",
+                        objectFit: "cover",
+                        transform: "translate(-50%, -50%)",
+                        zIndex:-1 
+                    }}
+                >
+                  <source src={clip} type="video/mp4"/>
+                </video>
 
                 {
                     userCtx && userCtx.auth === true ?

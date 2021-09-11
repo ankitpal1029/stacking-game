@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     let responseSuccessGoogle = (response: any):void => {
         axios({
             method:"POST",
-            url:"http://localhost:8000/googlelogin",
+            url:"https://stacking-game.herokuapp.com/googlelogin",
             data: { tokenId: response.tokenId}
         }).then((response) => {
             console.log(`Google login success:`, response);

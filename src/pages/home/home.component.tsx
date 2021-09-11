@@ -12,8 +12,6 @@ const Home: React.FC = () => {
     }
 
 
-
-
     return (
         <div>
 
@@ -25,7 +23,7 @@ const Home: React.FC = () => {
                         <div className="col s12">
                           <div className="card">
                             <div className="card-image">
-                              <span className="card-title">Card Title</span>
+                                {/*<span className="card-title">Card Title</span>*/}
                             </div>
                             <div className="card-content">
                                 <h3>Your Current HighScore is 
@@ -34,7 +32,7 @@ const Home: React.FC = () => {
 
                               <button onClick={clickHandler} className="btn lighten-1 z-depth-0">
                                   Click To Start Playing
-                                  </button>
+                              </button>
                           </div>
                         </div>
                       </div>

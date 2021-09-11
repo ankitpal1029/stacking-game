@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
+import {AuthContext} from '../../contexts/auth.context';
+import M from "materialize-css/dist/js/materialize.min.js";
 
 
 
 const Header: React.FC = () => {
     //const [ logout ] = useMutation(LOGOUT_USER);
     const history = useHistory();
+
+    const userCtx = useContext(AuthContext);
+    console.log(userCtx);
 
     //function logoutHandler(){
         //logout();
@@ -26,6 +31,8 @@ const Header: React.FC = () => {
             } else {
                 setLoginStatus(true);
                 localStorage.setItem("token",response.data.token)
+                window.location.reload(false);
+                M.toast({ html: `User Logged In`}, 500);
             }
         });
     }
@@ -34,21 +41,21 @@ const Header: React.FC = () => {
     }
 
     let logOutUser = () =>{
-        axios({
-            method: "POST",
-            url:"http://localhost:8000/"
-        });
+        localStorage.removeItem("token");
+        window.location.reload(false);
+        M.toast({ html: `User Logged Out`}, 500);
+
     }
 
-    const userAuthenticated = () => {
-        axios.get("http://localhost:8000/isUserAuth", {
-            headers: {
-                "x-access-token": localStorage.getItem("token"),
-            }
-        }).then((response) => {
-            console.log(response);
-        })
-    }
+    //const userAuthenticated = () => {
+        //axios.get("http://localhost:8000/isUserAuth", {
+            //headers: {
+                //"x-access-token": localStorage.getItem("token"),
+            //}
+        //}).then((response) => {
+            //console.log(response);
+        //})
+    //}
     return (
         <header>
             <nav>
@@ -71,14 +78,22 @@ const Header: React.FC = () => {
                           />
                     </li>
 
-                    <li>
+                    {/*<li>
                         <NavLink to="/signup">SignUp</NavLink>
                     </li>
+
                     <li  onClick={logOutUser}>
                         LogOut
 
-                    </li>
-                    {/* loginStatus && <li onClick={userAuthenticated}> Check Auth Status</li>*/}
+                    </li>*/}
+
+                    {userCtx && userCtx.auth && 
+                        <li  onClick={logOutUser}>
+                                LogOut
+                        </li>
+
+                    }
+                    {/*loginStatus && <li onClick={userAuthenticated}> Check Auth Status</li>*/}
 
                  </ul>
             

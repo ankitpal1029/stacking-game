@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
+const User = require("../models/users");
+
 const verifyJWT = (req, res, next) =>{
     const token = req.headers["x-access-token"]
 
@@ -15,6 +17,22 @@ const verifyJWT = (req, res, next) =>{
                 });
             } else {
                 req._id = decoded._id;
+                User.find({ _id: decoded._id}).exec((err, user) =>{
+
+                    if(err){
+                        res.json({
+                            auth: false,
+                            message: "database couldn't find the user",
+                            err
+                        })
+                    }
+                    res.json({
+                        auth: true,
+                        message: "token is authenticated",
+                        user
+                    });
+                    
+                });
                 next();
             }
         })

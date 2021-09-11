@@ -7,6 +7,7 @@ const app = express();
 
 // importing routes
 const authRoutes = require('./routes/auth');
+const statRoutes = require('./routes/stats');
 
 app.use(express.json());
 app.use(cors());
@@ -23,3 +24,4 @@ app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
 });
 app.use(authRoutes);
+app.use(statRoutes);

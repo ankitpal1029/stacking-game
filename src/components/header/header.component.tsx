@@ -4,6 +4,7 @@ import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
 import {AuthContext} from '../../contexts/auth.context';
 import M from "materialize-css/dist/js/materialize.min.js";
+import './header.component.css';
 
 
 

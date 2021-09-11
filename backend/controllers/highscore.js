@@ -1,20 +1,22 @@
 const User = require("../models/users");
 
-const leaderboard = (req, res) => {
-    User.find().sort({highscore : "desc"}).exec((err, users) => {
+const highscore = (req, res) => {
+    User.updateOne({
+        _id: req.body._id
+    },{ highscore: req.body.new_highscore},{upsert: true}).exec((err, user) => {
         if(err){
             return res.json({
                 status: false,
                 err
-            });
-        }
-        else{
+            })
+        }else{
             return res.json({
                 status: true,
-                users
             });
         }
-    });
+
+    })
+
 }
 
-module.exports = leaderboard;
+module.exports = highscore;

@@ -34,7 +34,9 @@ class Game{
         directionalLight.position.set(10, 20, 0);
         this.scene.add(directionalLight);
 
-        const width = 10;
+        // resizing
+
+        const width = 20;
         const height = width * (window.innerHeight / window.innerWidth);
         this.camera = new THREE.OrthographicCamera(
             width / -2,

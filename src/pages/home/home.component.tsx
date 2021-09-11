@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useHistory} from 'react-router';
+import {AuthContext} from '../../contexts/auth.context';
 import LeaderBoard from './leaderboard.component';
 
 
@@ -8,6 +9,8 @@ const Home: React.FC = () => {
 
     const history = useHistory();
     const [ leaderBoard , setLeaderBoard ] = useState();
+    let userCtx = useContext(AuthContext);
+
 
     
     function clickHandler(){
@@ -21,15 +24,18 @@ const Home: React.FC = () => {
             }).then((response) => {
                 setLeaderBoard(response.data.users);
         });
-    },[])
+
+    }, [])
 
     return (
         <div>
 
-            {
 
-            (
             <div className="center">
+
+                {
+                    userCtx && userCtx.auth === true ?
+
                 <div className="container">
                      <div className="row">
                         <div className="col s12">
@@ -38,8 +44,7 @@ const Home: React.FC = () => {
                                 {/*<span className="card-title">Card Title</span>*/}
                             </div>
                             <div className="card-content">
-                                <h3>Your Current HighScore is 
-                                </h3>
+                                <h3>Your Current HighScore is { userCtx.user[0].highscore}</h3>
                             </div>
 
                               <button onClick={clickHandler} className="btn lighten-1 z-depth-0">
@@ -51,6 +56,10 @@ const Home: React.FC = () => {
             
                     
                 </div>
+                    :
+
+                    <div></div>
+                }
 
                 <div className="container">
                      <div className="row">
@@ -75,12 +84,10 @@ const Home: React.FC = () => {
 
                 </div>
             </div>
-            )
 
 
 
 
-        }
         </div>
         
     )

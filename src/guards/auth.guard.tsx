@@ -4,6 +4,8 @@ import {AuthContext} from "../contexts/auth.context";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 const GuardedRoute = ({ component: Component, ...rest }) => {
+    let userCtx = useContext(AuthContext);
+    console.log(userCtx,"auth guard invoked");
     useEffect(() => {
         if(userCtx && userCtx.auth === false){
             M.toast({html: `Not Authenticated`},500);
@@ -11,12 +13,11 @@ const GuardedRoute = ({ component: Component, ...rest }) => {
             M.toast({ html: `Enjoy the Game`}, 500);
         } 
     }, [])
-    let userCtx = useContext(AuthContext);
 
 
     return(
         <Route {...rest} render={(props) => (
-            userCtx && userCtx.auth == true 
+            userCtx && userCtx.auth === true 
                 ? <Component {...props} />
                 : <Redirect to='/' />
         )} />

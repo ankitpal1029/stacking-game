@@ -1,8 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 import ReactDOM from 'react-dom';
 import Game from './gamelogic/gameInit';
 import * as CANNON from 'cannon';
 import "./game.page.css";
+import axios from 'axios';
+import {AuthContext} from '../../contexts/auth.context';
 
 class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, score:number}>{
 
@@ -16,7 +18,6 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
             gameStarted:false,
             gameEnded:false,
             score:0
-
         }
 
     }
@@ -69,11 +70,17 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
     };
 
     clickHandler(){
-        window.location.reload();
+
+        console.log('make the highscore update request here');
+
+        setTimeout(() => {
+            window.location.reload(false);
+        },500);
     }
     
 
     componentDidMount(){
+
         let gameRender: Game= new Game();
         let { renderer, scene, camera, stack} = gameRender.render();
 
@@ -139,8 +146,18 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
                     })
 
                 }else{
+                    let new_highscore = Math.max(this.context.user[0].highscore, this.state.score);
                     this.setState({
                         gameEnded:true
+                    },() => {
+                        axios({
+                                method:"POST",
+                                url:"http://localhost:8000/update_high_score",
+                            data: { _id: this.context.user[0]._id, new_highscore:  new_highscore}
+                            }).then((response) => {
+                                console.log(response);
+                        });
+
                     });
                     gameRender.addOverhang(
                         topLayer.threejs.position.x, 
@@ -159,42 +176,49 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
 
             }
         })
+
+
     
         renderer.domElement.className = `col s4`;
         ReactDOM.findDOMNode(this.gameContainer.current)?.appendChild(renderer.domElement);
+
+
         
     }
     
   render() {
     return (
         <div className="game-container" >
-            <div className="center-home">
+            <div id="info">{this.state.score}</div>
+            {/*<div className="center-home">
 
-                {!this.state.gameStarted && 
+                !this.state.gameStarted && 
                     <div className="btn waves-effect waves-light">
                         Click anywhere on the screen to start
                     </div>
-                }
-                {this.state.gameStarted  &&
+                  
+                this.state.gameStarted  &&
                  !this.state.gameEnded &&
                     <div className="col s6 btn waves-effect waves-light" >
                         {this.state.score}
                     </div>
-                }
+                  
 
 
-                {this.state.gameEnded && 
-                    <div className="col s6 ">
-                    <button onClick={this.clickHandler} className="btn lighten-1 z-depth-0">
-                        Game's Over Your Score Is {this.state.score} Click To PlayAgain
-                    </button>
-                    </div>
-                }
-            </div>
+                    </div>*/}
             <div className="center-home">
                 <div className=""></div>
                 <div className="game" ref={this.gameContainer}></div>
                 <div className=""></div>
+            </div>
+            <div className="center-home">
+                {this.state.gameEnded && 
+                    <div className="col s6 ">
+                    <button onClick={this.clickHandler} className="btn lighten-1 z-depth-0">
+                        Click To Go Back To Home
+                    </button>
+                    </div>
+                }
             </div>
         </div>
         )
@@ -202,5 +226,6 @@ class GamePage extends Component<{},{gameStarted:boolean, gameEnded:boolean, sco
   
 
 }
+GamePage.contextType = AuthContext;
 
 export default GamePage;

@@ -7,3 +7,20 @@
 .btn{
     margin: 1em;
 }
+
+#info {
+	position: absolute;
+    font-size: 2rem;
+	top: 5%;
+    left: 45%;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+    color: white;
+}
+
+body{
+    overflow-x: hidden;
+    background-color: black;
+}

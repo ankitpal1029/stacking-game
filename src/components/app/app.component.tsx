@@ -18,7 +18,6 @@ const App: React.FC = () => {
     return (
             <Router>
                 <AuthProvider>
-                    <Header />
                     <Switch>
                             <GuardedRoute path="/game" component={GamePage}>
                                 {/*<GamePage/>*/}
@@ -35,6 +34,7 @@ const App: React.FC = () => {
                           */}
 
                         <Route path="/">
+                            <Header />
                             <Home/ >
                         </Route>
 

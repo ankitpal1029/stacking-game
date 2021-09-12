@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {UserType} from '../../contexts/auth.types';
+import './leaderboard.component.css';
 
 const LeaderBoard: React.FC = () => {
     const [ loading, setLoading ] = useState(true);

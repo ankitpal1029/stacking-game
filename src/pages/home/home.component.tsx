@@ -4,6 +4,7 @@ import { useHistory} from 'react-router';
 import {AuthContext} from '../../contexts/auth.context';
 import LeaderBoard from './leaderboard.component';
 import clip from './homepage.mp4';
+import './home.component.css';
 
 
 const Home: React.FC = () => {
@@ -29,10 +30,11 @@ const Home: React.FC = () => {
     }, [])
 
     return (
-        <div>
+        <div 
+            className="">
 
 
-            <div className="center">
+            <div className="center ">
                 <video 
                     autoPlay 
                     muted 
@@ -52,56 +54,44 @@ const Home: React.FC = () => {
                   <source src={clip} type="video/mp4"/>
                 </video>
 
-                {
-                    userCtx && userCtx.auth === true ?
 
-                <div className="container">
-                     <div className="row">
-                        <div className="col s12">
-                          <div className="card">
-                            <div className="card-image">
-                                {/*<span className="card-title">Card Title</span>*/}
+                <div style={{ 
+                            height: "100vh",
+                        }}
+                    className="row valign-wrapper">
+                    {
+                        userCtx && userCtx.auth === true ?
+                            <div className="col s3 offset-s1">
+                              <div className="card divColor">
+                                <div className="card-image">
+                                </div>
+                                <div className="card-content">
+                                    <h3>Your Current HighScore is { userCtx.user[0].highscore}</h3>
+                                </div>
+
+                                  <button onClick={clickHandler} className="btn btnColor z-depth-0">
+                                      Click To Start Playing
+                                  </button>
+                              </div>
                             </div>
-                            <div className="card-content">
-                                <h3>Your Current HighScore is { userCtx.user[0].highscore}</h3>
+                            :
+                            <div></div>
+                    }
+                            <div className="col s3 offset-s4">
+                                  <table className="table grey darken-3 highlight centered responsive-table LezzonPrize">
+                                      <thead>
+                                          <tr>
+                                              <th>Rank</th>
+                                              <th>Name</th>
+                                              <th>HighScore</th>
+                                          </tr>
+                                      </thead>
+                                          <LeaderBoard />
+                                  </table>
                             </div>
-
-                              <button onClick={clickHandler} className="btn lighten-1 z-depth-0">
-                                  Click To Start Playing
-                              </button>
-                          </div>
-                        </div>
-                      </div>
-            
-                    
                 </div>
-                    :
-
-                    <div></div>
-                }
-
-                <div className="container">
-                     <div className="row">
-                        <div className="col s12">
-                          <div className="card">
-                              <table className="table highlight centered responsive-table">
-                                  <thead>
-                                      <tr>
-                                          <th>Rank</th>
-                                          <th>Name</th>
-                                          <th>HighScore</th>
-                                      </tr>
-                                  </thead>
-                                      <LeaderBoard />
-                              </table>
 
 
-
-                          </div>
-                        </div>
-                      </div>
-
-                </div>
             </div>
 
 

@@ -25,3 +25,5 @@ yarn-error.log*
 .Session.vim
 /backend/node_modules/
 /backend/.env
+
+.idea/

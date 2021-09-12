@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
@@ -29,8 +29,11 @@ const Header: React.FC = () => {
             console.log(`Google login success:`, response);
             if(!response.data.auth){
                 setLoginStatus(false);
+                console.log("response.data.auth is false");
+                console.log(response);
             } else {
                 setLoginStatus(true);
+                console.log("should make token");
                 localStorage.setItem("token",response.data.token)
                 window.location.reload(false);
                 M.toast({ html: `User Logged In`}, 500);
@@ -39,6 +42,8 @@ const Header: React.FC = () => {
     }
 
     let responseErrorGoogle = (response:any): void => {
+        console.log("google verification failed");
+        console.log(response);
     }
 
     let logOutUser = () =>{
@@ -61,14 +66,7 @@ const Header: React.FC = () => {
         <header>
             <nav>
                 <ul>
-                    {/*<li>
-                        <NavLink to="/game">Game</NavLink>
-                    </li>*/}
-                    
-                    {/*<li>
-                        <NavLink to="/signin">SignIn</NavLink>
-                    </li>
-                      */}
+                    { userCtx && !userCtx.auth &&
                     <li>
                         <GoogleLogin
                             clientId="690778545706-nck63lit5qofrpe4o0qs65kk7h9un14u.apps.googleusercontent.com"
@@ -79,22 +77,18 @@ const Header: React.FC = () => {
                           />
                     </li>
 
-                    {/*<li>
-                        <NavLink to="/signup">SignUp</NavLink>
-                    </li>
+                    }
 
-                    <li  onClick={logOutUser}>
-                        LogOut
-
-                    </li>*/}
 
                     {userCtx && userCtx.auth && 
-                        <li  onClick={logOutUser}>
+                        <li style={{
+                                paddingLeft: "20px"
+                            }} 
+                            onClick={logOutUser}>
                                 LogOut
                         </li>
 
                     }
-                    {/*loginStatus && <li onClick={userAuthenticated}> Check Auth Status</li>*/}
 
                  </ul>
             

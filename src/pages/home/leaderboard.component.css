@@ -1,0 +1,10 @@
+table.highlight>tbody>tr:hover {
+    background-color: rgb(168, 168, 168) !important;
+}
+table.highlight>tbody>tr {
+    color: black!important; 
+}
+
+table{
+    background-color: rbg(0,0,0)!important;
+}

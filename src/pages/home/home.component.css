@@ -1,0 +1,68 @@
+    .LezzonPrize{
+        text-align: center;
+        line-height: 1.8rem;
+        border-collapse: collapse;
+        border-radius: 36px;
+        -moz-border-radius: 36px;
+        -webkit-border-radius: 36px;
+        background-color: #FCF3C6;
+    }
+
+    .LezzonPrize thead th{
+        background-color:#FFCF5A;
+    }
+
+    .LezzonPrize thead th:first-child{
+        border-radius: 36px 0 0 0;
+    }
+
+    .LezzonPrize thead th:last-child{
+        border-radius: 0 36px 0 0;
+    }
+
+    .LezzonPrize th{
+        text-align: center;
+        vertical-align: middle;
+        line-height: 1.8rem;
+        font-weight: 700;
+        text-transform: none;
+        border-bottom:
+            2px solid #3F5A1B;
+    }
+
+    /*.LezzonPrize td:first-child{*/
+        /*text-align:left;*/
+    /*}*/
+
+    .LezzonPrize td{
+        font-size:18px;
+    }
+
+    .LezzonPrize tr:nth-child(2n-1) td{
+        background-color: #F3CF87;
+    }
+
+    .LezzonPrize tr:last-child td:first-child{
+        border-radius: 0 0 0 36px;
+        -moz-border-radius: 0 0 0 36px;
+        -webkit-border-radius: 0 0 0 36px;
+    }
+
+    .LezzonPrize tr:last-child td:last-child{
+        border-radius: 0 0 36px 0;
+        -moz-border-radius: 0 0 36px 0;
+        -webkit-border-radius: 0 0 36px 0;
+    }
+    .LezzonPrize tr:nth-child(2n) td{
+        background-color: #DE3538;
+    }
+
+    .divColor{
+        background-color: #F3CF87;
+        border-radius: 36px;
+    }
+
+    .btnColor{
+        background-color: #DE3538;
+        border-radius: 36px;
+    }

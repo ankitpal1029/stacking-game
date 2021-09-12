@@ -19,7 +19,7 @@ https://stacking-game.netlify.app/
 ###           Home Page After Login
 ![Alt text](./README/home2.png)
 ###           Game on Desktop
-![Alt text](./README/gameDestop.png)
+![Alt text](./README/gameDesktop.png)
 ### Game on Mobile
 ![Alt text](./README/gameMobile.png)
 

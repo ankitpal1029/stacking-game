@@ -77,7 +77,7 @@ const Home: React.FC = () => {
                             :
                             <div></div>
                     }
-                            <div className="col s3 offset-s4">
+                            <div className="col s1 m3 offset-m4 ">
                                   <table className="table grey darken-3 highlight centered responsive-table LezzonPrize">
                                       <thead>
                                           <tr>

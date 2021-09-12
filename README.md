@@ -25,9 +25,9 @@ https://stacking-game.netlify.app/
 
 
 ### Upcoming Updates
-[] Fix landing page for mobile view
-[] Replay option at the end of a game sequence
-[] Share pic of your stack
+- [ ] Fix landing page for mobile view
+- [ ] Replay option at the end of a game sequence
+- [ ] Share pic of your stack
 
 ### To contribute to the project 
 
